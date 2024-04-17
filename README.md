@@ -6,4 +6,4 @@ URL to published site: [github pages](https://anematode.github.io/Lab2_Starter/i
 
 Image of W3 validation:
 
-![W3 validation](./images/w3_validation.png)
+![W3 validation](./screenshots/w3_validation.png)
