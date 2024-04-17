@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Meeting Minutes &ndash; 4/16</title>
+    <meta charset="utf-8">
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+<header>
+<h1>Pomodoro Timer Fifth Brainstorm Meeting</h1>
+<h3>Improving Web Worker performance and latency</h3>
+<h3>4/16/2024</h3>
+</header>
+<hr>
+<div class="navigation">
+    <h2>Navigation</h2>
+    <nav>
+        <ul>
+            <li><a href="#attendees">Attendees</a></li>
+            <li><a href="#discussion-items">Discussion items</a></li>
+            <li><a href="#todays-discussion">Today's discussion</a></li>
+            <li><a href="#diagrams">Diagrams</a></li>
+        </ul>
+    </nav>
+</div>
+<main>
+<section>
+    <h2>Motivational audio (written by Livesey)</h2>
+    <p>Get the creative juices flowing.</p>
+    <audio controls>
+        <source src="larynx.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
+    <h2>Motivational video (written by Doefus)</h2>
+    <p>Get the creative juices flowing.</p>
+    <details>
+        <summary>Show video</summary>
+        <video controls>
+            <source src="video.mov" type="video/mp4">
+            Your browser does not support the video element.
+        </video>
+    </details>
+<h2 id="attendees">Attendees</h2>
+<ul>
+    <li>John Doe &ndash; <i>Team lead</i></li>
+    <li>Sebastien Doefus &ndash; <i>Software engineering intern</i></li>
+    <li>Jane Doe &ndash; <i>Software engineer</i></li>
+    <li>Jim Doe &ndash; <i>Software engineer</i></li>
+    <li>Jim Livesey &ndash; <i>Software engineering intern</i></li>
+</ul>
+</section>
+<br>
+<section>
+<h2 id="discussion-items">Discussion items</h2>
+<ol>
+    <li>Pros and cons of <code>SharedArrayBuffer</code>?</li>
+    <li>Browser differences in handling of <code>postMessage</code>?</li>
+    <li>Do we need a worker at all?</li>
+    <li>How do erroneous conditions like out-of-memory affect the main thread?</li>
+</ol>
+<h3>Unfinished items (4/9/2024)</h3>
+<ol>
+    <li>Quantifying performance needs: end-to-end latency of <strong>100&nbsp;ms</strong> ideal, but what about throughput?</li>
+    <li>How to cancel long-running tasks?</li>
+</ol>
+</section>
+<br>
+<section>
+<h2 id="todays-discussion">Today's discussion</h2>
+    <div class="discussion">
+<ul>
+    <li><b>John</b>: Client wants 5&nbsp;seconds end-to-end to transform their 50&nbsp;megabyte dataset.
+    <ul>
+        <li><b>Jane</b>: Infeasible. Current algorithm scales <strong>linearithimically</strong> and so we'd expect at least a few minutes.</li>
+        <li><b>Jim</b>: How long did we know about this requirement?
+        <ul>
+            <li><b>John</b>: Since yesterday. We thought the maximum dataset would be 5&nbsp;megabytes or so.</li>
+        </ul></li>
+        <li><b>Jane</b>: WebAssembly SIMD might be able to help with the histogramming and sorting stage.<ul>
+            <li><b>John</b>: We can't rely on it. It's not supported in all browsers.</li>
+            <li><b>Jim</b>: I think it's got support from all the major ones now. And I think it's not SIMD that will help us, but better cache locality and a lower memory footprint. JavaScript Maps are traversed in insertion order and so are slow as molasses compared to a proper unordered map.</li>
+        </ul></li>
+    </ul>
+    </li>
+    <li><b>Jane</b>: Could I get a refresher on why we're using web workers for this instead of server-side processing?
+        <ul>
+        <li><b><span class="doofus">Sebastien Doefus</span></b>: I'm pretty sure web workers are faster than anything we could do on the server.</li>
+        <li><b><span class="doofus">Jim Livesey</span></b>: Yeah. I have an Apple M3 and it has a higher Geekbench score than any server I've benchmarked.</li>
+        <li><b>John</b>: We're using web workers because the client wants to keep their data on their own servers. They don't want to send it to us.
+        <ul>
+            <li><b><span class="doofus">Sebastien Doefus</span></b>: Are you an <em>idiot</em>? We could just use the blockchain to keep their data secure. The blockchain is the most secure way to store data. I love the blockchain. I love it so much. I love it more than my wife. I love it more than my kids. I love it more than my dog. I love it more than my cat. I love it more than my goldfish. I love it more than my hamster. I love it more than my gerbil. I love it more than my parakeet. I love it more than my canary.</li>
+            <li><b>John</b>: We're not using the blockchain. We're not even using a database. We're just processing the data in the browser and sending it back.</li>
+        </ul></li>
+        </ul></li>
+    <li><b><span class="doofus">Sebastien Doefus</span></b>: Let me draw a diagram of what I mean.
+    <ul>
+        <li><b>John</b>: No, we don't have time for that. Do you not understand what the blockchain is?</li>
+        <li><b><span class="doofus">Jim Livesey</span></b>: Your mom is a blockchain.</li>
+        <li><b>Jane</b>: What the hell does this even mean?</li>
+    </ul>
+    </li>
+    <li><b>Jim</b>: Who hired these imbeciles?
+    <ul>
+        <li><b>John</b>: <i>Mea culpa.</i></li>
+    </ul></li>
+</ul>
+    </div>
+</section>
+<section>
+<h2 id="diagrams">Diagrams</h2>
+<div>
+    <img src="screenshots/diagram.png" alt="Diagram of the proposed architecture" width="592">
+    <p>Doefus's proposed architecture. <i>Editor's note: Sebastien threw his computer on the floor after John tried to calm him down.</i></p>
+</div>
+</section>
+
+    <section>
+        <!-- need: form, fieldset, input, textarea, datalist, select, option, button -->
+        <form>
+            <fieldset>
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" name="fullname">
+                <br>
+                <label for="constructive">Constructive feedback:</label>
+                <textarea id="constructive" name="constructive"></textarea>
+                <br>
+                <label for="tonka">Are you a tortoise?</label>
+                <select id="tonka" name="tonka">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <br>
+                <label for="over-18-yes">Are you over 18?</label>
+                <input type="checkbox" id="over-18-yes" name="over-18-yes" value="yes">
+                <br>
+                <p>To which family of the tree of life do you belong?</p>
+                <label for="animalia">Animalia</label>
+                <input type="radio" id="animalia" name="family" value="Animalia">
+                <label for="bacteria">Bacteria</label>
+                <input type="radio" id="bacteria" name="family" value="Bacteria">
+                <label for="plantae">Plantae</label>
+                <input type="radio" id="plantae" name="family" value="Plantae">
+                <label for="protista">Protista</label>
+                <input type="radio" id="protista" name="family" value="Protista">
+                <label for="fungi">Fungi</label>
+                <input type="radio" id="fungi" name="family" value="Fungi">
+                <label for="other">Other</label>
+                <input type="radio" id="other" name="family" value="Other">
+                <br>
+                <label for="likes-cows">Do you like cows?</label>
+                <input list="cows" id="likes-cows" name="likes-cows">
+                <datalist id="cows">
+                    <option value="Yes">
+                    <option value="No">
+                    <option value="Maybe">
+                </datalist>
+                <br>
+                <label for="current-date">Today's date:</label>
+                <input type="date" id="current-date" name="current-date">\
+                <br>
+                <button type="submit">Submit!</button>
+            </fieldset>
+        </form>
+    </section>
+</main>
+<footer><small>Note: Doefus's unhinged outburst was created using generative AI. Everything else is entirely original. The favicon is from UCSD Canvas and is in the public domain because it is under the threshold of originality.</small></footer>
+</body>
+</html>
